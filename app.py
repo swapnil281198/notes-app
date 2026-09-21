@@ -1,21 +1,17 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask
 
 app = Flask(__name__)
 
-notes = []
+@app.route('/')
+def home():
+    return """
+    <h1>Simple Notes App</h1>
+    <ul>
+        <li>Learn Docker</li>
+        <li>Learn Jenkins</li>
+        <li>Learn Kubernetes</li>
+    </ul>
+    """
 
-@app.route("/", methods=["GET", "POST"])
-def index():
-    if request.method == "POST":
-        note = request.form.get("note")
-
-        if note:
-            notes.append(note)
-
-        return redirect("/")
-
-    return render_template("index.html", notes=notes)
-
-
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
